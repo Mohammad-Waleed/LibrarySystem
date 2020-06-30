@@ -1,0 +1,38 @@
+<h1 class="text-center"><%= "Books of Library "+ current_user.library_id.to_s %></h1>
+<% @books.each do |book| %>
+  <div class="row container pt-5">
+    <div class="col col-md-2"></div>
+    <div class="text-center col col-md-4">
+
+      <table class="table table-bordered table-striped">
+        <tr ><td  colspan="2"><%= link_to book.title, book_path(book) %></td></tr>
+        <tr>
+          <td>ISBN</td> <td><%= book.isbn %></td>
+        </tr>
+        <tr>
+          <td>Author</td> <td><%= book.author %></td>
+        </tr>
+        <tr>
+          <td>Genre</td> <td><%= book.genre %></td>
+        </tr>
+        <tr>
+          <td>Status</td> <td><%= book.status.capitalize %></td>
+        </tr>
+      </table>
+
+      <% if current_user.type=="Manager"%>
+        <%= link_to "Change Status", book_change_status_path(book),method: :post,class:"btn btn-info" %>
+        <%= link_to "Edit", edit_book_path(book),class:"btn btn-primary" %>
+        <%= link_to "Delete",book_path(book),data:{confirm: "Do you really want to delete this book?"},method: :delete,class:"btn btn-danger"%>
+      <% elsif current_user.type=="Issuer"%>
+        <%=link_to "Issue this book", issue_book_request_path(book), method: :post,class:"btn btn-success"%>
+      <%end%>
+    </div>
+    <div class="col col-3"></div>
+    <div class="col col-md-3">
+      <% if book.images%>
+        <%=  image_tag book.images[0] , size: '200x300'%>
+      <%end%>
+    </div>
+  </div>
+<%end%>

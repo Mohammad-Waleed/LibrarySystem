@@ -1,0 +1,56 @@
+<div class="container pt-0 jumbotron col-md-3 ">
+<h2 class="text-center">Sign up</h2>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name),validate: true) do |f| %>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %>
+    <%= f.password_field :password, autocomplete: "new-password",class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password",class:"form-control" %>
+  </div>
+
+<!-----------Issuer-------->
+<% if !current_user %>
+  <div class="form-group">
+    <%= f.label :fname %>
+    <%= f.text_field :fname, autofocus: true, autocomplete: "fname",class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :lname %>
+    <%= f.text_field :lname, autofocus: true, autocomplete: "lname",class:"form-control", required:  true %>
+  </div>
+
+  <div class="form-group">
+  <%= f.file_field :image ,class:"btn btn-primary form-control" %> </div>
+
+  <div class="form-group">
+    <%= f.label "Select Library" %>
+    <% libraries_array = Library.all.ids %>
+    <%= f.select  :library_id , options_for_select(libraries_array), {},class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :balance %>
+    <%= f.text_field :balance, autofocus: true, autocomplete: "balance",class:"form-control", required:  true %>
+  </div>
+
+<%end%>
+<!--------------------------->
+  <div class="form-group text-center">
+    <%= f.submit "Submit",class:"text-center btn btn-primary" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" ,class:"form-control" %>
+</div>

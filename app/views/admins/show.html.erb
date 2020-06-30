@@ -1,0 +1,20 @@
+<h1 class="text-center">Welcome Admin</h1>
+
+<% if @issuers_request%>
+  <h3 class="text-center">Issuers Requests</h3>
+  <table class="text-center container table table-hover table-bordered">
+    <tr class="bg-success text-light"><th>Email</th><th>First Name</th><th>Last Name</th><th>Image</th><th>Approve</th><th>Reject</th></tr>
+    <% @issuers_request.each do |i| %>
+      <tr>
+        <td><%= i.email %></td>
+        <td><%= i.fname %></td>
+        <td><%= i.lname %></td>
+        <td ><%= image_tag i.image ,size:"150x150" %></td>
+        <td><%= link_to 'Approve Request', issuer_approval_path(i),method: :post,class:"btn btn-success" %></td>
+        <td><%= link_to 'Delete',issuer_path(i),method: :delete,data:{confirm:"Are you sure?"},class:"btn btn-danger"%></td>
+      </tr>
+    <%end%>
+  </table>
+<%else%>
+  <h3>No Issuer Requests Yet!</h3>
+<%end%>

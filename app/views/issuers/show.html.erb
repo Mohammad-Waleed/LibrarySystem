@@ -1,0 +1,69 @@
+<% if current_user.type=="Issuer"%>
+  <h1 class="text-center">Welcome <%= @issuer.fname+" "+@issuer.lname %> to  Dashboard</h1>
+<%else%>
+  <h1 class="text-center"> <%= @issuer.fname+" "+@issuer.lname %></h1>
+<%end%>
+<div class="row">
+  <div class="col col-md-1"></div>
+  <div class="col col-md-4">
+    <table class="text-center table table-striped table-bordered">
+      <tr><th class="bg-secondary " colspan="2">Details</th></tr>
+      <tr>
+        <td>Email</td>
+        <td><%= @issuer.email%></td>
+      </tr>
+      <tr>
+        <td>First Name</td>
+        <td><%= @issuer.fname%></td>
+      </tr>
+      <tr>
+        <td>Last Name</td>
+        <td><%= @issuer.lname%></td>
+      </tr>
+      <tr>
+        <td>Balance</td>
+        <td><%= @issuer.balance%></td>
+      </tr>
+    </table>
+  </div>
+  <div class="col col-md-3"></div>
+  <div class="col col-md-2">
+    <% if @issuer.image.attached? %>
+      <%= image_tag @issuer.image, size:"200x220",class:"rounded" %>
+    <% end %>
+  </div>
+</div>
+
+<% if @issued_books %>
+  <div class="container">
+    <h3 class="text-center">Issued Books</h3>
+    <table class="table table-bordered table-hover">
+      <tr class="bg-secondary"><th>Title</th><th>ISBN</th><th>Author</th><th>Year</th><th>Genre</th><th>Issued Date</th><th>Days</th><th>Fine</th>
+        <%if current_user.type=="Issuer"%>
+          <th>Return Book</th>
+        <%end%>
+      </tr>
+      <% if @issued_books!=nil%>
+        <% @issued_books.each do |hist| %>
+          <tr>
+          <% days = (Time.now - Time.parse(hist.start_date)).to_i/(3600*24)%>
+          <% book=@books.where(id:hist.book_id).last %>
+          <% if book!=nil %>
+            <td><%= book.title %></td>
+            <td><%= book.isbn %></td>
+            <td><%= book.author %></td>
+            <td><%= book.year %></td>
+            <td><%= book.genre %></td>
+            <td><%= hist.start_date %></td>
+            <td><%= days%></td>
+            <td><%= days>30 ?fin=(days-30)*@fine: fin=0  %></td>
+            <%if current_user.type == "Issuer"%>
+              <td><%= link_to "Return this book",return_book_path(book),method: :post,class:"btn btn-info" %></td>
+            <%end%>
+          <%end%>
+          </tr>
+        <%end%>
+      <%end%>
+    </table>
+  </div>
+<%end%>

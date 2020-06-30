@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book Issue Success</title>
+</head>
+<body>
+  <h2>Congraulations!<%= @book.title %> request is successfully approved</h2>
+  <table class="table table-bordered table-hover">
+    <tr class="bg-success text-light"><th colspan="2"></th><th></tr>
+    <tr><td>Title</td><td><%=@book.title%></td></tr>
+    <tr><td>ISBN</td><td><%=@book.isbn%></td></tr>
+    <tr><td>Author</td><td><%=@book.author%></td></tr>
+    <tr><td>Year</td><td><%=@book.year%></td></tr>
+  </table>
+</body>
+</html>

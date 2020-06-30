@@ -1,0 +1,10 @@
+{
+  "name": "LMS",
+  "private": true,
+  "dependencies": {
+    "@client-side-validations/client-side-validations": "^0.1.4",
+    "bootstrap": "^4.5.0",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1"
+  }
+}

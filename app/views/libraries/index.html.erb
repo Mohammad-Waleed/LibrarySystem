@@ -1,0 +1,17 @@
+<div class="container">
+  <br>
+  <h1 class="text-center ">Welcome to LMS !</h1>
+  <br>
+  <table class="table table-hover table-bordered text-center">
+    <tr class="bg-success text-light"><th>Library ID</th><th>Fine Amount</th></tr>
+    <% @libraries.each do |lib| %>
+      <tr>
+        <td><%= lib.id %></td>
+        <td><%= lib.fine %></td>
+      </tr>
+    <%end%>
+  </table>
+  <%= link_to 'Sign in', new_user_session_path,class: "btn btn-primary " %>
+  <%= link_to 'Sign up as Issuer', new_user_registration_path,class: "btn btn-primary" %>
+</div>
+
