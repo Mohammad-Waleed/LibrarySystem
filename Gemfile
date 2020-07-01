@@ -12,6 +12,7 @@ gem 'bootstrap', '~> 4.0'
 
 gem 'jquery-rails'
 
+
 gem 'client_side_validations'
 
 gem 'pundit'
