@@ -15,12 +15,12 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.datetime :remember_created_at
 
       #Other Fields
-      t.string :fname
-      t.string :lname
-      t.integer :balance ,default: 0
-      t.integer :status ,default: 0
-      t.string :type
-      t.integer :approval,default: 0
+      t.string     :fname
+      t.string     :lname
+      t.integer    :balance , default: 0
+      t.integer    :status  , default: 'inactive'
+      t.integer    :type
+      t.integer    :approval, default: 'unapproved'
       t.references :library
       ## Trackable
       # t.integer  :sign_in_count, default: 0, null: false

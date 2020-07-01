@@ -1,6 +1,14 @@
-class AdminsController<ApplicationController
+class AdminsController < ApplicationController
+  before_action :check_authorization
+
   def show
-    @issuers_request=Issuer.where(approval: :unapproved)
-    authorize Admin
+    @issuers_request=Issuer.unapproved
   end
+
+  private
+
+    def check_authorization
+      authorize Admin
+    end
+
 end

@@ -39,26 +39,32 @@ ActiveRecord::Schema.define(version: 2020_06_17_160209) do
   create_table "book_histories", force: :cascade do |t|
     t.bigint "book_id", null: false
     t.bigint "issuer_id", null: false
-    t.string "start_date"
-    t.string "end_date"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["book_id"], name: "index_book_histories_on_book_id"
     t.index ["issuer_id"], name: "index_book_histories_on_issuer_id"
   end
 
   create_table "books", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "isbn", null: false
-    t.string "author", null: false
-    t.integer "year", null: false
-    t.string "genre", null: false
+    t.string "title", default: "", null: false
+    t.string "isbn", limit: 13, default: "", null: false
+    t.string "author", default: "", null: false
+    t.integer "year", default: 2020, null: false
+    t.string "genre", default: "", null: false
     t.integer "no_of_copies", default: 0, null: false
     t.integer "status", default: 0, null: false
     t.bigint "library_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["library_id"], name: "index_books_on_library_id"
   end
 
   create_table "libraries", force: :cascade do |t|
     t.decimal "fine", default: "0.0", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,7 +77,7 @@ ActiveRecord::Schema.define(version: 2020_06_17_160209) do
     t.string "lname"
     t.integer "balance", default: 0
     t.integer "status", default: 0
-    t.string "type"
+    t.integer "type"
     t.integer "approval", default: 0
     t.bigint "library_id"
     t.datetime "created_at", null: false
