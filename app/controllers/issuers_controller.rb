@@ -1,6 +1,6 @@
 class IssuersController < ApplicationController
  before_action :check_authorization
- before_action :set_issuer, only: [ :edit, :destroy, :show, :change_status, :approve]
+ before_action :set_issuer, only: [ :edit, :update, :destroy, :show, :change_status, :approve]
 
   def index
     @issuers = Issuer.approved.where( library_id: current_user.library_id).order('created_at ASC')
@@ -16,7 +16,7 @@ class IssuersController < ApplicationController
   end
 
   def update
-    if Issuer.update(params[:id],parameters)
+    if @issuer.update(parameters)
       redirect_to issuers_path
     else
       render 'edit'
@@ -39,7 +39,6 @@ class IssuersController < ApplicationController
   def approve
     if @issuer.unapproved?
       @issuer.approved!
-      IssuerMailer.welcome(@issuer).deliver_now!
     end
     redirect_to root_path
   end

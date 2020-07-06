@@ -3,11 +3,11 @@ class LibrariesController < ApplicationController
   before_action :set_library, only: [ :edit, :update]
 
   def index
-    @libraries=  Library.all.order(:id)
+    @libraries = Library.all.order(:id)
   end
 
   def edit
-    @library =  Library.find(params[:id])
+    @library = Library.find(params[:id])
   end
 
   def update
@@ -31,5 +31,4 @@ class LibrariesController < ApplicationController
     def check_authorization
       authorize Library
     end
-
 end
