@@ -1,6 +1,6 @@
 class IssuerPolicy < ApplicationPolicy
   def index?
-    user.type=="Admin"
+    !user ? false : user.Admin?
   end
 
   def show?
@@ -16,22 +16,22 @@ class IssuerPolicy < ApplicationPolicy
   end
 
   def update?
-    user.type=="Admin"
+    !user ? false : user.Admin?
   end
 
   def create?
-    user.type=="Admin"
+    !user ? false : user.Admin?
   end
 
   def destroy?
-    user.type=="Admin"
+    !user ? false : user.Admin?
   end
 
   def change_status?
-    user.type=="Admin"
+    !user ? false : user.Admin?
   end
 
   def approve?
-    user.type=="Admin"
+    !user ? false : user.Admin?
   end
 end

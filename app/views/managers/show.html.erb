@@ -1,24 +1,29 @@
-<h1 class="text-center" >Welcome Manager</h1><br>
-<div class="row text-center">
-  <div class="col col-md-1"></div>
-  <div class="col">
+<h1 class = 'text-center' >Welcome Manager</h1><br>
+<div class = 'row text-center'>
+  <div class = 'col col-md-1'></div>
+  <div class = 'col'>
     <h2>Book Issue Request</h2>
-    <table class="table table-bordered table-hover container text-center">
-      <tr class="bg-secondary "><th>Issuer ID</th><th>Book ID</th><th>Approve</th><th>Reject</th></tr>
+    <table class = 'table table-bordered table-hover container text-center'>
+      <tr class = 'bg-secondary'>
+        <th>Issuer ID</th>
+        <th>Book ID</th>
+        <th>Approve</th>
+        <th>Reject</th>
+      </tr>
       <%@book_request.each do |book| %>
         <tr>
-          <td><%= link_to book.issuer_id,issuer_path(book.issuer_id) %></td>
-          <td><%= link_to book.book_id,book_path(book.book_id) %></td>
-          <td><%= link_to "Approve Request",issue_book_path(book),method: :post %></td>
-          <td><%= link_to "Reject Request",book_history_path(book),method: :delete %></td>
+          <td><%= link_to book.issuer_id, issuer_path(book.issuer_id) %></td>
+          <td><%= link_to book.book_id, book_path(book.book_id) %></td>
+          <td><%= link_to 'Approve Request', issue_book_path(book), method: :post %></td>
+          <td><%= link_to 'Reject Request', book_history_path(book), method: :delete %></td>
         </tr>
       <%end%>
     </table>
   </div>
 
-  <div class="col">
+  <div class = 'col'>
     <% if @manager.image.attached? %>
-        <%= image_tag @manager.image ,size:"200x220",class:"rounded"%>
+        <%= image_tag @manager.image, size:'200x220', class:'rounded' %>
     <% end %>
   </div>
 </div>

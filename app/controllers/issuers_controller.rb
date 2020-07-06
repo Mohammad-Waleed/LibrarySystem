@@ -1,27 +1,21 @@
 class IssuersController < ApplicationController
- before_action :find_issuer,only:[:edit,:destroy,:show,:change_status]
+ before_action :check_authorization
+ before_action :set_issuer, only: [ :edit, :destroy, :show, :change_status, :approve]
 
   def index
-    @issuers = Issuer.where(library_id: current_user.library_id,approval:'approved').order('created_at ASC')
-    authorize @issuers
+    @issuers = Issuer.approved.where( library_id: current_user.library_id).order('created_at ASC')
   end
 
   def show
-    authorize Issuer
-    if current_user.type=="Admin"
-      @history=BookHistory.where(issuer_id: @issuer_id,end_date:[nil,false])
+    if current_user.Admin?
+      @book_history = BookHistory.where(issuer_id: @issuer_id, end_date: [ nil, false])
     end
-    @issued_books=BookHistory.where(issuer_id:@issuer.id,end_date: nil).where.not(start_date: nil)
-    @fine=Library.find(@issuer.library_id).fine
-    @books=Book.where(library_id:@issuer.library_id)
-  end
-
-  def edit
-    authorize Issuer
+    @issued_books = BookHistory.where(issuer_id: @issuer.id, end_date: nil).where.not(start_date: nil)
+    @fine = Library.find_by(id: @issuer.library_id).fine
+    @books = Book.where(library_id: @issuer.library_id)
   end
 
   def update
-    authorize Issuer
     if Issuer.update(params[:id],parameters)
       redirect_to issuers_path
     else
@@ -30,36 +24,37 @@ class IssuersController < ApplicationController
   end
 
   def destroy
-    authorize @issuer.destroy
-    redirect_to issuers_path
+    if @issuer.destroy
+      redirect_to issuers_path
+    else
+      redirect_to current_user
+    end
   end
 
   def change_status
-    authorize @issuer
-    if @issuer.active?
-      @issuer.update(status:'inactive')
-    else
-      @issuer.update(status:'active')
-    end
+    @issuer.active? ? @issuer.inactive! : @issuer.active!
     redirect_to issuers_path
   end
 
   def approve
-    @issuer=authorize Issuer.find(params[:id])
     if @issuer.unapproved?
-      @issuer.update(approval:'approved')
+      @issuer.approved!
       IssuerMailer.welcome(@issuer).deliver_now!
     end
     redirect_to root_path
   end
 
-private
+  private
 
-  def find_issuer
-    @issuer=Issuer.find(params[:id])
-  end
+    def set_issuer
+      @issuer = Issuer.find_by(id: params[:id])
+    end
 
-  def parameters
-    params.require(:issuer).permit(:email,:password,:image,:fname,:lname,:balance,:status)
-  end
+    def check_authorization
+      authorize Issuer
+    end
+
+    def parameters
+      params.require(:issuer).permit( :email, :password, :image, :fname, :lname, :balance, :status)
+    end
 end

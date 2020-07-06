@@ -1,9 +1,9 @@
 class Admin < User
   belongs_to :library
 
-private
+  private
 
-  def issuer?
-    false
-  end
+    def issuer?
+      false
+    end
 end

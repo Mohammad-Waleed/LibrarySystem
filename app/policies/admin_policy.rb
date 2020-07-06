@@ -1,5 +1,5 @@
 class AdminPolicy < ApplicationPolicy
   def show?
-    user.type=="Admin"
+    !user ? false : user.Admin?
   end
 end

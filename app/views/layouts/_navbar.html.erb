@@ -1,50 +1,51 @@
-<nav class="navbar navbar-expand-lg  navbar-light bg-light">
-  <%= link_to "Libraries",libraries_path,class:"navbar-brand"%>
-  <div class="collapse navbar-collapse ">
-    <ul class="navbar-nav mr-auto ">
-      <li class="nav-item">
-        <%= link_to "Home",current_user,class:"nav-link"%>
+<nav class = 'navbar navbar-expand-lg  navbar-light bg-light'>
+  <%= link_to 'Libraries', libraries_path, class:'navbar-brand' %>
+  <div class = 'collapse navbar-collapse'>
+    <ul class = 'navbar-nav mr-auto'>
+      <li class = 'nav-item'>
+        <%= link_to 'Home', current_user, class:'nav-link' %>
       </li>
 
-      <% if current_user.type=="Admin"%>
-          <li class="nav-item">
-            <%= link_to "Managers",managers_path,class:"nav-link"%>
+      <% if current_user.Admin?%>
+          <li class = 'nav-item'>
+            <%= link_to 'Managers', managers_path, class:'nav-link' %>
           </li>
-          <li class="nav-item">
-            <%= link_to "Issuers",issuers_path,class:"nav-link"%>
+          <li class = 'nav-item'>
+            <%= link_to 'Issuers', issuers_path, class:'nav-link' %>
           </li>
-          <li class="nav-item">
-             <%= link_to "Change Fine Amount", edit_library_path(id: current_user.library_id),class:"nav-link"%>
+          <li class = 'nav-item'>
+             <%= link_to 'Change Fine Amount', edit_library_path(id: current_user.library_id), class:'nav-link' %>
           </li>
-          <li class="nav-item">
-            <%= link_to "Create New Manager" , new_manager_path ,class:"nav-link" %>
+          <li class = 'nav-item'>
+            <%= link_to 'Create New Manager', new_manager_path, class:'nav-link' %>
           </li>
-          <li class="nav-item ">
-            <%= link_to 'Sign Out' , destroy_user_session_path , method: :delete,class:"btn btn-danger text-light nav-link"%>
+          <li class = 'nav-item'>
+            <%= link_to 'Sign Out' , destroy_user_session_path, method: :delete,class:'btn btn-danger text-light nav-link' %>
           </li>
         </ul>
-      <%else%>
-          <li class="nav-item">
-            <%= link_to "View Books",books_path,class:"nav-link"%>
+      <% else %>
+          <li class = 'nav-item'>
+            <%= link_to 'View Books', books_path, class:'nav-link' %>
           </li>
-          <%if current_user.type=="Manager"%>
+          <%if current_user.Manager?%>
             <li>
-              <%= link_to 'Create new Book', new_book_path ,class:"nav-link"%>
+              <%= link_to 'Create new Book', new_book_path , class:'nav-link'%>
             </li>
           <%end%>
-          <li class="nav-item">
-            <%= link_to "Sign Out",destroy_user_session_path, method: :delete,class:"btn btn-danger text-light nav-link"%>
+          <li class = 'nav-item'>
+            <%= link_to 'Sign Out', destroy_user_session_path, method: :delete,class:'btn btn-danger text-light nav-link' %>
           </li>
         </ul>
-        <%= form_for :book, url:search_book_path,method:'get',html: {class: 'form-inline my-0 my-lg-0'} do |f| %>
-          <div class="input-group">
-              <%= select_tag :search_key,options_for_select([['Author','Author'],['ISBN','ISBN'],['Title','title']]),class:"form-control my-0 my-sm-0 col-md-3"%>
-              <%= f.text_field :title,placeholder:"Search Book" ,class:"form-control mr-sm-0" %>
-              <div class="input-group-append">
-                 <%= f.submit "Search" ,class:"btn btn-outline-success my-0 my-sm-0" %>
+        <%= form_for :book, url: search_book_path, method: 'get', html: { class: 'form-inline my-0 my-lg-0' } do |f| %>
+          <div class = 'input-group'>
+              <%= select_tag :search_key, options_for_select( [ ['Author', 'Author'], ['ISBN', 'ISBN'], ['Title', 'title']]),class:'form-control my-0 my-sm-0 col-md-3' %>
+              <%= f.text_field :title, placeholder:'Search Book', class:'form-control mr-sm-0' %>
+              <div class = 'input-group-append'>
+                 <%= f.submit 'Search', class:'btn btn-outline-success my-0 my-sm-0' %>
               </div>
           </div>
-        <%end%>
-      <%end%>
+        <% end %>
+
+      <% end %>
   </div>
 </nav>

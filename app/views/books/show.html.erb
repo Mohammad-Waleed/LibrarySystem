@@ -1,9 +1,9 @@
-<h1 class="text-center"><%= @book.title%></h1>
-<div class="row">
-  <div class="col col-md-1"></div>
-  <div class="col col-md-2">
-    <table class="table table-bordered table-hover text-center">
-      <tr><th colspan="2" class="bg-secondary">Book Details</th></tr>
+<h1 class = 'text-center'><%= @book.title %></h1>
+<div class = 'row'>
+  <div class = 'col col-md-1'></div>
+  <div class = 'col col-md-2'>
+    <table class = 'table table-bordered table-hover text-center'>
+      <tr><th colspan = '2' class = 'bg-secondary'>Book Details</th></tr>
       <tr>
         <td>Title</td>
         <td><%= @book.title %></td>
@@ -34,19 +34,21 @@
       </tr>
     </table>
   </div>
-  <div class="col col-md-2"></div>
-  <div class="col col-md-6">
+
+  <div class = 'col col-md-2'></div>
+
+  <div class = 'col col-md-6'>
     <% @book.images.each do |image|%>
     <%=  image_tag image , size: '200x200'%>
-  <%end%>
+  <% end %>
   <br>
   <br>
 
-  <%if current_user.type=="Issuer"%>
-    <%= link_to "Issue Book",issue_book_request_path(@book),method: :post ,class:"btn btn-info"%>
-  <% elsif current_user.type=="Manager"%>
-    <%= link_to "Edit",edit_book_path(@book),class:"btn btn-primary" %>
-    <%= link_to "Delete",book_path(@book),data:{confirm:"Do you really want to delete this book?"},method: :delete,class:"btn btn-danger" %>
-  <%end%>
+  <%if current_user.Issuer? %>
+    <%= link_to 'Issue Book', issue_book_request_path(@book), method: :post, class:'btn btn-info' %>
+  <% elsif current_user.Manager? %>
+    <%= link_to 'Edit', edit_book_path(@book), class:'btn btn-primary' %>
+    <%= link_to 'Delete', book_path(@book), data: { confirm: 'Do you really want to delete this book?' }, method: :delete, class:'btn btn-danger' %>
+  <% end %>
   </div>
 </div>
