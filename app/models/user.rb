@@ -3,23 +3,23 @@ class User < ApplicationRecord
 
   has_one_attached :image
 
-  enum approval: [ :unapproved, :approved]
-  enum type: [ :Admin, :Manager, :Issuer]
-  enum status: [ :active, :inactive]
+  enum approval: [:unapproved, :approved]
+  enum type: [:Admin, :Manager, :Issuer]
+  enum status: [:active, :inactive]
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, authentication_keys: [ :email, :library_id]
+         :recoverable, :rememberable, :validatable, authentication_keys: [:email, :library_id]
 
   validates :fname, :lname, :balance, :email, presence: { message: 'This field is required' }, if: :issuer?
-  validates :balance, numericality: { only_integer: true, greater_than_or_equal_to: 0}        , if: :issuer?
-  validates :fname, :lname, format: { with: /\A[a-zA-Z]+\z/, message: 'Only allows letters' }  , if: :issuer?
+  validates :balance, numericality: { only_integer: true, greater_than_or_equal_to: 0 },       if: :issuer?
+  validates :fname, :lname, format: { with: /\A[a-zA-Z]+\z/, message: 'Only allows letters' }, if: :issuer?
 
   def active_for_authentication?
-    super && self.Issuer?? self.approved? && self.active? : self.Manager??  self.active? : true
+    super && self.Issuer? ? self.approved? && self.active? : self.Manager? ?  self.active? : true
   end
 
   def inactive_message
-    self.Issuer? && self.unapproved?? message_inactive('unapproved') : message_inactive('inactive')
+    self.Issuer? && self.unapproved? ? message_inactive('unapproved') : message_inactive('inactive')
   end
 
   private
@@ -33,6 +33,6 @@ class User < ApplicationRecord
     end
 
     def check_type
-      self.type='Issuer' if self.type == nil
+      self.type = 'Issuer' if self.type == nil
     end
 end

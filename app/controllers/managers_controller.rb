@@ -1,6 +1,6 @@
 class ManagersController<ApplicationController
   before_action :check_authorization
-  before_action :set_manager, only: [ :show, :edit, :update, :destroy, :change_status]
+  before_action :set_manager, only: [:show, :edit, :update, :destroy, :change_status]
 
   def index
     @managers = Manager.where(library_id: current_user.library_id).order('created_at ASC')
@@ -46,7 +46,7 @@ class ManagersController<ApplicationController
 private
 
   def manager_params
-    params.require(:manager).permit( :email, :status, :image, :password, :password_confirmation, :library_id).tap do |hash|
+    params.require(:manager).permit(:email, :status, :image, :password, :password_confirmation, :library_id).tap do |hash|
       hash[:library_id] = current_user.library_id
     end
   end

@@ -1,14 +1,14 @@
 class IssuersController < ApplicationController
  before_action :check_authorization
- before_action :set_issuer, only: [ :edit, :update, :destroy, :show, :change_status, :approve]
+ before_action :set_issuer, only: [:edit, :update, :destroy, :show, :change_status, :approve]
 
   def index
-    @issuers = Issuer.approved.where( library_id: current_user.library_id).order('created_at ASC')
+    @issuers = Issuer.approved.where(library_id: current_user.library_id).order('created_at ASC')
   end
 
   def show
     if current_user.Admin?
-      @book_history = BookHistory.where(issuer_id: @issuer_id, end_date: [ nil, false])
+      @book_history = BookHistory.where(issuer_id: @issuer_id, end_date: [nil, false])
     end
     @issued_books = BookHistory.where(issuer_id: @issuer.id, end_date: nil).where.not(start_date: nil)
     @fine = Library.find_by(id: @issuer.library_id).fine
@@ -54,6 +54,6 @@ class IssuersController < ApplicationController
     end
 
     def parameters
-      params.require(:issuer).permit( :email, :password, :image, :fname, :lname, :balance, :status)
+      params.require(:issuer).permit(:email, :password, :image, :fname, :lname, :balance, :status)
     end
 end

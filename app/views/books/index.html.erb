@@ -1,12 +1,12 @@
-<h1 class = 'text-center'><%= 'Books of Library '+ current_user.library_id.to_s %></h1>
+<h1 class='text-center'><%= 'Books of Library '+ current_user.library_id.to_s %></h1>
 <% @books.each do |book| %>
-  <div class = 'row container pt-5'>
-    <div class = 'col col-md-2'></div>
+  <div class='row container pt-5'>
+    <div class='col col-md-2'></div>
 
-    <div class = 'text-center col col-md-4'>
-      <table class = 'table table-bordered table-striped'>
+    <div class='text-center col col-md-4'>
+      <table class='table table-bordered table-striped'>
         <tr >
-          <td  colspan = '2'><%= link_to book.title, book_path(book) %></td>
+          <td  colspan='2'><%= link_to book.title, book_path(book) %></td>
         </tr>
         <tr>
           <td>ISBN</td> <td><%= book.isbn %></td>
@@ -27,7 +27,7 @@
         <%= link_to 'Edit', edit_book_path(book), class:'btn btn-primary' %>
         <%= link_to 'Delete', book_path(book), data: { confirm: 'Do you really want to delete this book?'}, method: :delete, class:'btn btn-danger'%>
       <% elsif current_user.Issuer? %>
-        <%=link_to 'Issue this book', issue_book_request_path(book), method: :post,class:'btn btn-success' %>
+        <%= link_to 'Issue this book', issue_book_request_path(book), method: :post, class:'btn btn-success' %>
       <% end %>
     </div>
 

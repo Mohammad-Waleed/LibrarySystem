@@ -1,6 +1,6 @@
 class LibrariesController < ApplicationController
   before_action :check_authorization
-  before_action :set_library, only: [ :edit, :update]
+  before_action :set_library, only: [:edit, :update]
 
   def index
     @libraries = Library.all.order(:id)

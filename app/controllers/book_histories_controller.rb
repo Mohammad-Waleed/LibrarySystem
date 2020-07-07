@@ -1,9 +1,12 @@
 class BookHistoriesController<ApplicationController
-  before_action :set_book_history, only: [ :destroy]
+  before_action :set_book_history, only: [:destroy]
 
   def destroy
-    IssuerMailer.book_issue_fail(@hist.issuer_id,@hist.book_id).deliver_now!
-    @book_history.destroy ? redirect_to current_user : flash[:alert] = 'Could not delete the book !'
+    if @book_history.destroy
+      redirect_to current_user
+    else
+      flash[:alert] = 'Could not delete the book!'
+    end
     render current_user
   end
 

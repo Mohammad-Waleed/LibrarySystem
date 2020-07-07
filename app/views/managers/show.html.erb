@@ -1,10 +1,12 @@
-<h1 class = 'text-center' >Welcome Manager</h1><br>
-<div class = 'row text-center'>
-  <div class = 'col col-md-1'></div>
-  <div class = 'col'>
+<h1 class='text-center' >Welcome Manager</h1><br>
+
+<div class='row text-center'>
+  <div class='col col-md-1'></div>
+
+  <div class='col'>
     <h2>Book Issue Request</h2>
-    <table class = 'table table-bordered table-hover container text-center'>
-      <tr class = 'bg-secondary'>
+    <table class='table table-bordered table-hover container text-center'>
+      <tr class='bg-secondary'>
         <th>Issuer ID</th>
         <th>Book ID</th>
         <th>Approve</th>
@@ -21,9 +23,10 @@
     </table>
   </div>
 
-  <div class = 'col'>
+  <div class='col'>
     <% if @manager.image.attached? %>
         <%= image_tag @manager.image, size:'200x220', class:'rounded' %>
     <% end %>
   </div>
+
 </div>
