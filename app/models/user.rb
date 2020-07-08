@@ -11,7 +11,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, authentication_keys: [:email, :library_id]
 
   validates :fname, :lname, :balance, :email, presence: { message: 'This field is required' }, if: :issuer?
-  validates :balance, numericality: { only_integer: true, greater_than_or_equal_to: 0 },       if: :issuer?
+  validates :balance, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, if: :issuer?
   validates :fname, :lname, format: { with: /\A[a-zA-Z]+\z/, message: 'Only allows letters' }, if: :issuer?
 
   def active_for_authentication?

@@ -1,4 +1,4 @@
-class ManagersController<ApplicationController
+class ManagersController < ApplicationController
   before_action :check_authorization
   before_action :set_manager, only: [:show, :edit, :update, :destroy, :change_status]
 
@@ -16,6 +16,7 @@ class ManagersController<ApplicationController
 
   def create
     @manager = Manager.new(manager_params)
+
     if @manager.save
       redirect_to admin_path(current_user.id)
     else
@@ -39,7 +40,7 @@ class ManagersController<ApplicationController
   end
 
   def change_status
-    @manager.active?? @manager.inactive! : @manager.active!
+    @manager.active? ? @manager.inactive! : @manager.active!
     redirect_to managers_path
   end
 
@@ -56,6 +57,6 @@ private
   end
 
   def check_authorization
-      authorize Manager
+    authorize Manager
   end
 end

@@ -1,4 +1,4 @@
-class BookHistoriesController<ApplicationController
+class BookHistoriesController < ApplicationController
   before_action :set_book_history, only: [:destroy]
 
   def destroy

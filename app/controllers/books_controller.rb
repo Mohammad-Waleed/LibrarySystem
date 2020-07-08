@@ -1,4 +1,4 @@
- class BooksController<ApplicationController
+ class BooksController < ApplicationController
   before_action :check_authorization
   before_action :book_params, only: [:create]
   before_action :set_book, only: [:change_status, :show, :edit, :update, :destroy, :issue_book_request, :return_book]
@@ -58,7 +58,6 @@
       @issuer = Issuer.find_by(id: @book_history.issuer_id)
       @issuer.book_histories << @book_history
       flash[:notice] = 'You have successfully issued book!'
-      IssuerMailer.book_issue_success(@book_history.issuer_id,@book_history.book_id).deliver_now!
       redirect_to current_user
     else
       render 'show'

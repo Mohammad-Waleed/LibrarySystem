@@ -16,7 +16,7 @@ class IssuersController < ApplicationController
   end
 
   def update
-    if @issuer.update(parameters)
+    if @issuer.update(issuer_params)
       redirect_to issuers_path
     else
       render 'edit'
@@ -53,7 +53,7 @@ class IssuersController < ApplicationController
       authorize Issuer
     end
 
-    def parameters
+    def issuer_params
       params.require(:issuer).permit(:email, :password, :image, :fname, :lname, :balance, :status)
     end
 end

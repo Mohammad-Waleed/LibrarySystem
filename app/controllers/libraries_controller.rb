@@ -6,10 +6,6 @@ class LibrariesController < ApplicationController
     @libraries = Library.all.order(:id)
   end
 
-  def edit
-    @library = Library.find(params[:id])
-  end
-
   def update
     if  @library.update(parameters)
       redirect_to current_user

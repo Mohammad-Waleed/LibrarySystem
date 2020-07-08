@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :books
   resources :book_histories, only: [:destroy]
 
-  get  '/search_book/', to: 'books#search_book', as: 'search_book'
+  get '/search_book/', to: 'books#search_book', as: 'search_book'
   post '/books/:id/issue_book', to: 'books#issue_book',as: 'issue_book'
   post '/books/:id/issue_book_request', to: 'books#issue_book_request', as: 'issue_book_request'
   post '/books/:id/return_book', to: 'books#return_book', as: 'return_book'

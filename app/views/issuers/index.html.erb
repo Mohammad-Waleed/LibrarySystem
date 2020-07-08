@@ -1,31 +1,36 @@
-<h1 class = 'text-center'>Issuers of Library <%= current_user.library_id %></h1>
-<div class = 'container' >
+<h1 class='text-center'>Issuers of Library <%= current_user.library_id %></h1>
+<div class='container'>
   <% @issuers.each do |issuer| %>
-      <div class = 'text-center col-md-3'>
-        <div class = 'card card-style' >
+      <div class='text-center col-md-3'>
+        <div class='card card-style' >
+
           <% if issuer.image %>
-            <%=  image_tag issuer.image , size: '200x200',class:'card-img-top' %>
+            <%=  image_tag issuer.image, size: '200x200', class:'card-img-top' %>
           <% end %>
-          <div class = 'card-body'>
-            <h5 class = 'card-title'><%= issuer.fname + '' + issuer.lname %></h5>
+
+          <div class='card-body'>
+            <h5 class='card-title'><%= issuer.fname + ' ' + issuer.lname %></h5>
           </div>
-          <ul class = 'list-group list-group-flush'>
-            <li class = 'list-group-item'>Status: <%= issuer.status.capitalize %></li>
-            <li class = 'list-group-item'>Balance: <%= issuer.balance %></li>
+
+          <ul class='list-group list-group-flush'>
+            <li class='list-group-item'>Status: <%= issuer.status.capitalize %></li>
+            <li class='list-group-item'>Balance: <%= issuer.balance %></li>
             <% if current_user.Admin? %>
-              <li class = 'list-group-item'><%= link_to 'Change Status', issuer_change_status_path(issuer), method: :post, class:'card-link' %></li>
+              <li class='list-group-item'><%= link_to 'Change Status', issuer_change_status_path(issuer), method: :post, class:'card-link' %></li>
             <% end %>
-            <li class = 'list-group-item'><%= link_to 'View Profile',issuer_path(issuer),class:'card-link' %></li>
+            <li class='list-group-item'><%= link_to 'View Profile', issuer_path(issuer), class:'card-link' %></li>
           </ul>
-          <div class = 'card-body'>
+
+          <div class='card-body'>
             <%if current_user.Admin? %>
               <%= link_to 'Edit', edit_issuer_path(issuer), class:'card-link' %>
               <%= link_to 'Delete', issuer_path(issuer), data: { confirm: 'Are you sure?' }, method: :delete, class:'card-link' %>
             <% end %>
           </div>
+
         </div>
       </div>
 
-      <div class = 'col-sm-1'></div>
+      <div class='col-sm-1'></div>
   <% end %>
 </div>

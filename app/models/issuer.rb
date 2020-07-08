@@ -12,6 +12,7 @@ class Issuer < User
   after_update :send_welcome_mail, if: :approval_changed?
 
   private
+
     def send_welcome_mail
       IssuerMailer.welcome(self).deliver_now!
     end

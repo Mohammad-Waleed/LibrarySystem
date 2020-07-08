@@ -1,5 +1,6 @@
 class Library < ApplicationRecord
   has_one :admin
+
   has_many :books
   has_many :managers
   has_many :issuers
