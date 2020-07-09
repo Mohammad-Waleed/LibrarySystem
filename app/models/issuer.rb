@@ -9,7 +9,7 @@ class Issuer < User
   validates :balance, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :fname, :lname, format: { with: /\A[a-zA-Z]+\z/, message: 'Only allows letters' }
 
-  after_update :send_welcome_mail, if: :approval_changed?
+  before_update :send_welcome_mail, if: :approval_changed?
 
   private
 

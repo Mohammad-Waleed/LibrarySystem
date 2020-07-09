@@ -1,7 +1,7 @@
 class BookHistory < ApplicationRecord
   before_destroy :book_issue_fail_mail
 
-  after_update :issue_success_mail, if: :start_date_changed?
+  before_update :issue_success_mail, if: :start_date_changed?
 
   belongs_to :book
   belongs_to :issuer
