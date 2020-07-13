@@ -8,6 +8,6 @@ class LibraryPolicy < ApplicationPolicy
   end
 
   def update?
-    user.type=="Admin"
+    user && user.Admin?
   end
 end

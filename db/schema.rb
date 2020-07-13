@@ -50,9 +50,9 @@ ActiveRecord::Schema.define(version: 2020_06_17_160209) do
   create_table "books", force: :cascade do |t|
     t.string "title", default: "", null: false
     t.string "isbn", limit: 13, default: "", null: false
-    t.string "author", default: "", null: false
+    t.string "author", limit: 40, default: "", null: false
     t.integer "year", default: 2020, null: false
-    t.string "genre", default: "", null: false
+    t.string "genre", limit: 50, default: "", null: false
     t.integer "no_of_copies", default: 0, null: false
     t.integer "status", default: 0, null: false
     t.bigint "library_id"
@@ -73,10 +73,10 @@ ActiveRecord::Schema.define(version: 2020_06_17_160209) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "fname"
-    t.string "lname"
+    t.string "fname", limit: 20
+    t.string "lname", limit: 20
     t.integer "balance", default: 0
-    t.integer "status", default: 0
+    t.integer "status", default: 0, null: false
     t.integer "type"
     t.integer "approval", default: 0
     t.bigint "library_id"

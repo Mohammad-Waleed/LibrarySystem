@@ -2,7 +2,7 @@ class AdminsController < ApplicationController
   before_action :check_authorization
 
   def show
-    @issuers_request=Issuer.unapproved
+    @issuers_request = Issuer.unapproved.where(library_id: current_user.library_id)
   end
 
   private
@@ -10,5 +10,4 @@ class AdminsController < ApplicationController
     def check_authorization
       authorize Admin
     end
-
 end

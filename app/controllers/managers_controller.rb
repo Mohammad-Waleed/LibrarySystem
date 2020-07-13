@@ -1,24 +1,22 @@
-class ManagersController<ApplicationController
-  before_action :find_manager,only:[:show,:edit,:update,:destroy,:change_status]
+class ManagersController < ApplicationController
+  before_action :check_authorization
+  before_action :set_manager, only: [:show, :edit, :update, :destroy, :change_status]
 
   def index
-    @managers = authorize Manager.where(library_id: current_user.library_id).order("created_at ASC")
+    @managers = Manager.where(library_id: current_user.library_id).order('created_at ASC')
   end
 
   def show
-    @book=authorize Book.last
-    @book_request=BookHistory.where(start_date:nil)
+    @book_request = BookHistory.where(start_date: nil)
   end
 
   def new
-    @manager=Manager.new
-    authorize @manager
+    @manager = Manager.new
   end
 
   def create
-    fields=manager_params
-    fields[:library_id]=current_user.library_id
-    @manager=authorize Manager.new(fields)
+    @manager = Manager.new(manager_params)
+
     if @manager.save
       redirect_to admin_path(current_user.id)
     else
@@ -26,12 +24,7 @@ class ManagersController<ApplicationController
     end
   end
 
-  def edit
-  end
-
   def update
-    authorize @manager
-    manager_params[:library_id]=current_user.library_id
     if @manager.update(manager_params)
       redirect_to current_user
     else
@@ -40,28 +33,30 @@ class ManagersController<ApplicationController
   end
 
   def destroy
-    authorize @manager
-    @manager.destroy
+    if !@manager.destroy
+      flash[:alert] = 'Could not delete the book!'
+    end
     redirect_to managers_path
   end
 
   def change_status
-    authorize @manager
-    if  @manager.active?
-      @manager.update(status:'inactive')
-    else
-      @manager.update(status:'active')
-    end
+    @manager.active? ? @manager.inactive! : @manager.active!
     redirect_to managers_path
   end
 
 private
 
   def manager_params
-    params.require(:manager).permit(:email,:status,:image,:password,:password_confirmation,:library_id)
+    params.require(:manager).permit(:email, :status, :image, :password, :password_confirmation, :library_id).tap do |hash|
+      hash[:library_id] = current_user.library_id
+    end
   end
 
-  def find_manager
-    @manager=Manager.find(params[:id])
+  def set_manager
+    @manager = Manager.find_by(id: params[:id])
+  end
+
+  def check_authorization
+    authorize Manager
   end
 end

@@ -9,13 +9,15 @@
   </head>
 
   <body>
-    <%= render "layouts/navbar" if current_user%>
+    <%= render 'layouts/navbar' if current_user %>
     <%if notice %>
-      <p class="alert alert-success text-center"><%= notice %></p>
+      <p class='alert alert-success text-center'><%= notice %></p>
     <%end%>
+
     <%if alert %>
-      <p class="alert alert-danger text-center"><%= alert %></p>
+      <p class='alert alert-danger text-center'><%= alert %></p>
     <%end%>
+
     <%= yield %>
   </body>
 </html>

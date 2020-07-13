@@ -1,10 +1,11 @@
 class ManagerPolicy < ApplicationPolicy
+
   def index?
-    user.type=="Admin"
+    user && user.Admin?
   end
 
   def show?
-    user.type=="Admin" or user.type=="Manager"
+    user && (user.Admin? || user.Manager?)
   end
 
   def new?
@@ -12,7 +13,7 @@ class ManagerPolicy < ApplicationPolicy
   end
 
   def create?
-    user.type=="Admin"
+    user && user.Admin?
   end
 
   def edit?
@@ -20,14 +21,14 @@ class ManagerPolicy < ApplicationPolicy
   end
 
   def update?
-    user.type=="Admin"
+    user && user.Admin?
   end
 
   def destroy?
-    user.type=="Admin"
+    user && user.Admin?
   end
 
   def change_status?
-    user.type=="Admin"
+    user && user.Admin?
   end
 end

@@ -1,14 +1,23 @@
 class BookPolicy < ApplicationPolicy
+
   def index?
-    user.type=="Manager" or user.type=="Issuer"
+    user && (user.Manager? || user.Issuer?)
   end
 
   def show?
-    user.type=="Issuer" or user.type=="Manager"
+    user && (user.Manager? || user.Issuer?)
   end
 
   def new?
     create?
+  end
+
+  def create?
+    user && user.Manager?
+  end
+
+  def destroy?
+    user && user.Manager?
   end
 
   def edit?
@@ -16,34 +25,26 @@ class BookPolicy < ApplicationPolicy
   end
 
   def update?
-    user.type=="Manager"
-  end
-
-  def create?
-    user.type=="Manager"
-  end
-
-  def destroy?
-    user.type=="Manager"
+    user && user.Manager?
   end
 
   def change_status?
-    user.type=="Manager"
+    user && user.Manager?
   end
 
   def issue_book_request?
-    user.type=="Issuer"
+    user && user.Issuer?
   end
 
   def issue_book?
-    user.type=="Manager"
+    user && user.Manager?
   end
 
   def return_book?
-    user.type=="Issuer"
+    user && user.Issuer?
   end
 
   def search_book?
-    user.type=="Issuer" or user.type=="Manager"
+    user && (user.Manager? || user.Issuer?)
   end
 end
